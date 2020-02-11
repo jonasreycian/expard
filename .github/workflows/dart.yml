@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: linux-latest
+    runs-on: ubuntu-latest
 
     container:
       image:  google/dart:latest
@@ -19,4 +19,4 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
     - name: Run tests
-      run: flutter pub run test
+      run: flutter test
