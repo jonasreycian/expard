@@ -9,6 +9,8 @@
 .history
 .svn/
 
+# User-specified file
+
 # IntelliJ related
 *.iml
 *.ipr
