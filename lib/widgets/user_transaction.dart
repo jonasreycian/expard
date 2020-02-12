@@ -36,6 +36,7 @@ class _UserTransactionsState extends State<UserTransactions> {
       title: txTitle,
       amount: txAmount,
       date: DateTime.now(),
+      id: DateTime.now().toString(),
     );
   }
 
