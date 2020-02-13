@@ -12,9 +12,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        accentColor: Colors.amber,
-      ),
+          primarySwatch: Colors.green,
+          accentColor: Colors.amber,
+          fontFamily: 'Quicksand',
+          appBarTheme: AppBarTheme(
+            // Copy the default theme
+            textTheme: ThemeData.light().textTheme.copyWith( 
+                  title: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 20,
+                    //fontWeight: FontWeight.bold
+                  ),
+                ), 
+          )),
       home: MyHomePage(),
     );
   }
@@ -111,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(
           Icons.add,
           color: Theme.of(context).primaryColorDark,
-          size: 24,
+          size: 50,
         ),
         onPressed: () => _startAddNewTransaction,
       ),
