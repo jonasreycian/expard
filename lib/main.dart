@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return tx.date.isAfter(DateTime.now().subtract(
         Duration(days: 7),
       ));
-    });
+    }).toList();
   }
 
   void _addNewTransaction(String txTitle, double txAmount) {
@@ -83,15 +83,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _startAddNewTransaction(BuildContext ctx) {
+    print('_startAddNewTransaction');
     showModalBottomSheet(
-        context: ctx,
-        builder: (_) {
-          return GestureDetector(
-            onTap: () {},
-            child: NewTransaction(_addNewTransaction),
-            behavior: HitTestBehavior.opaque,
-          );
-        });
+      context: ctx,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          child: NewTransaction(_addNewTransaction),
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+    );
   }
 
   @override
@@ -116,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Chart(_userTransactions),
-              TransactionList(_userTransactions),
+              TransactionList(_recentTransactions),
             ],
           ),
         ),
