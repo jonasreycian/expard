@@ -111,16 +111,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Center(
-        child: Container(
-          width: 500,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Chart(_userTransactions),
-                TransactionList(_userTransactions),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Chart(_userTransactions),
+              TransactionList(_userTransactions),
+            ],
           ),
         ),
       ),
