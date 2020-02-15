@@ -7,21 +7,20 @@ class Chart extends StatelessWidget {
 
   Chart(this.recentTransactions);
 
+  // Generate chart bar for 7 days
   List<Map<String, Object>> get groupedTransactionValues {
     return List.generate(7, (index) {
-
-
       final weekDay = DateTime.now().subtract(
         Duration(days: index),
       );
 
       // Get the total amount of each day.
-      var totalSum = 0.0;      
-      for(var i=0; i<recentTransactions.length; i++){
-        if (recentTransactions[i].date.day == weekDay.day && 
+      var totalSum = 0.0;
+      for (var i = 0; i < recentTransactions.length; i++) {
+        if (recentTransactions[i].date.day == weekDay.day &&
             recentTransactions[i].date.month == weekDay.month &&
-            recentTransactions[i].date.year == weekDay.year){
-              totalSum += recentTransactions[i].amount;
+            recentTransactions[i].date.year == weekDay.year) {
+          totalSum += recentTransactions[i].amount;
         }
       }
 
@@ -29,9 +28,9 @@ class Chart extends StatelessWidget {
       print(totalSum);
 
       return {
-        'day': DateFormat.E(weekDay), 
+        'day': DateFormat.E(weekDay),
         'amount': totalSum,
-        };
+      };
     });
   }
 
@@ -40,6 +39,9 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
+      child: Row(
+        children: <Widget>[],
+      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:expard/widgets/chart.dart';
 import 'package:expard/widgets/new_transaction.dart';
 import 'package:expard/widgets/tansaction_list.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +18,13 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Quicksand',
           appBarTheme: AppBarTheme(
             // Copy the default theme
-            textTheme: ThemeData.light().textTheme.copyWith( 
+            textTheme: ThemeData.light().textTheme.copyWith(
                   title: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 20,
                     //fontWeight: FontWeight.bold
                   ),
-                ), 
+                ),
           )),
       home: MyHomePage(),
     );
@@ -39,25 +40,34 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 69.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Weekly Groceries',
-    //   amount: 9.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New House',
-    //   amount: 69.99,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'Weekly Groceries',
+      amount: 9.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'New House',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
   ];
+
+// get : This is called gather
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    });
+  }
 
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
@@ -100,20 +110,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Theme.of(context).primaryColorLight,
-                child: Text('This is chart!'),
-                elevation: 5,
-              ),
+      body: Center(
+        child: Container(
+          width: 500,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Chart(_userTransactions),
+                TransactionList(_userTransactions),
+              ],
             ),
-            TransactionList(_userTransactions),
-          ],
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -123,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Theme.of(context).primaryColorDark,
           size: 50,
         ),
-        onPressed: () => _startAddNewTransaction,
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }
