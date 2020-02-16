@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.green,
           accentColor: Colors.amber,
+          errorColor: Colors.red,
           fontFamily: 'Quicksand',
           appBarTheme: AppBarTheme(
             // Copy the default theme
@@ -80,6 +81,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _deleteTransactions(String id) {
+    // Rebuild UI when deleting
+    setState(() {
+      _userTransactions.removeWhere((e) => e.id == id); // Inline expression
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Chart(_userTransactions),
-            TransactionList(_recentTransactions),
+            TransactionList(_recentTransactions, _deleteTransactions),
           ],
         ),
       ),

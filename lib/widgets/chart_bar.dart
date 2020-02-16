@@ -34,6 +34,7 @@ class ChartBar extends StatelessWidget {
                 ),
               ),
               FractionallySizedBox(
+                alignment: Alignment.bottomLeft,
                 heightFactor:
                     spendingPctOfTotal, // 1: 100 percent height of the container
                 child: Container(

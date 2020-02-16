@@ -4,14 +4,15 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final Function deleteTx;
 
   // Constructor
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.deleteTx);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 400,
       child: transactions.isEmpty
           ? Column(
               children: <Widget>[
@@ -31,7 +32,7 @@ class TransactionList extends StatelessWidget {
                 ),
               ],
             )
-          : ListView.builder(
+          : ListView.builder(  // ListView is configured to have infinite height
               itemBuilder: (ctx, index) {
                 return Card(
                   elevation: 5,
@@ -55,6 +56,11 @@ class TransactionList extends StatelessWidget {
                           ),
                         ),
                       ),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () => deleteTx(transactions[index].id), // Pass a reference
                     ),
                   ),
                 );
