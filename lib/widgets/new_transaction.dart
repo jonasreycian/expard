@@ -10,7 +10,6 @@ class NewTransaction extends StatefulWidget {
 
   @override
   _NewTransactionState createState() => _NewTransactionState();
-
 }
 
 class _NewTransactionState extends State<NewTransaction> {
@@ -20,11 +19,12 @@ class _NewTransactionState extends State<NewTransaction> {
 
   void _submitData(BuildContext context) {
     final enteredTitle = _titleController.text;
-    final enteredAmount = double.parse(_amountController.text);
+    final enteredAmount =
+        _amountController.value.text.isEmpty ? 0 : double.parse(_amountController.text);
     final enteredDate = _selectedDate;
 
     if (enteredTitle.isEmpty || enteredAmount <= 0 || enteredDate == null) {
-      return;
+      return; //showDialog(context: context, child: Text('data'));
     }
 
     print('Title: ' + enteredTitle);
@@ -56,7 +56,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
     print('...');
   }
-  
+
   // Parsing Date
   String parseDate(DateTime dateTime) {
     return '${DateFormat.yMMMd().format(dateTime)} , ${DateFormat.jms().format(dateTime)}';
