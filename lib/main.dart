@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.green,
           accentColor: Colors.amber,
+          errorColor: Colors.red,
           fontFamily: 'Quicksand',
           appBarTheme: AppBarTheme(
             // Copy the default theme
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
                     fontFamily: 'OpenSans',
                     fontSize: 20,
                     //fontWeight: FontWeight.bold
+                  ),
+                  button: TextStyle(
+                    color: Colors.white,
                   ),
                 ),
           )),
@@ -39,26 +43,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'Weekly Groceries',
-      amount: 9.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'New House',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-  ];
+  final List<Transaction> _userTransactions = [];
 
 // get : This is called gather
   List<Transaction> get _recentTransactions {
@@ -69,11 +54,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(String txTitle, double txAmount, DateTime dateTime) {
     final newTx = Transaction(
       title: txTitle,
       amount: txAmount,
-      date: DateTime.now(),
+      date: dateTime,
       id: DateTime.now().toString(),
     );
 
@@ -96,6 +81,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _deleteTransactions(String id) {
+    // Rebuild UI when deleting
+    setState(() {
+      _userTransactions.removeWhere((e) => e.id == id); // Inline expression
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,15 +104,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Chart(_userTransactions),
-              TransactionList(_recentTransactions),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Chart(_userTransactions),
+            TransactionList(_recentTransactions, _deleteTransactions),
+          ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

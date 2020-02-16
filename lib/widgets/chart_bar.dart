@@ -11,12 +11,16 @@ class ChartBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        FittedBox( // Shrink the amount instead of line wrapping
-          child: Text('\$${spendingAmount.toStringAsFixed(0)}'), 
+        Container(
+          height: 20,
+          child: FittedBox( // Shrink the amount instead of line wrapping
+            child: Text('\$${spendingAmount.toStringAsFixed(2)}'), 
+          ),
         ),
         SizedBox(
           height: 4,
         ),
+        // Container for the bar
         Container(
           height: 60,
           width: 10,
@@ -30,6 +34,7 @@ class ChartBar extends StatelessWidget {
                 ),
               ),
               FractionallySizedBox(
+                alignment: Alignment.bottomLeft,
                 heightFactor:
                     spendingPctOfTotal, // 1: 100 percent height of the container
                 child: Container(
